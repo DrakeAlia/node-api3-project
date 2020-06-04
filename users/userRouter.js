@@ -90,7 +90,7 @@ router.put('/:id', validateUser("name"), validateUserId, (req, res) => {
   // do your magic!
   Users.update(req.params.id, req.body)
   .then(user => {
-      res.status(200).json(user);
+      res.status(200).json({ message: `User's number ${req.user} has been updated`});
     })
  .catch(error => {
     // log error to database
@@ -108,7 +108,7 @@ function validateUserId(req, res, next) {
       if (!user) {
         res.status(404).json({ message: "user id is invaild"});
       } else {
-         req.user = user;
+         req.user = req.params.id;
          next();
       }
     })
